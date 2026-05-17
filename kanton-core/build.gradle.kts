@@ -23,6 +23,8 @@ kotlin {
     jvmToolchain(17)
 }
 
+tasks.test { useJUnitPlatform() }
+
 application {
     mainClass.set("kanton.core.cli.executor.ExecutorKt")
 }
