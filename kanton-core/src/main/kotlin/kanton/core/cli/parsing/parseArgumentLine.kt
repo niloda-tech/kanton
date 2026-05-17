@@ -2,15 +2,15 @@ package kanton.core.cli.parsing
 
 import kanton.core.cli.models.ArgumentConfig
 
-private val WITH_TYPE_AND_DEFAULT = Regex("""^(\w+),\s+(.+?)\s+:\s+(\w+\(.*?\))\s+=\s+(.+)$""")
+private val WITH_TYPE_AND_DEFAULT = Regex("""^([\w-]+),\s+(.+?)\s+:\s+(\w+\(.*?\))\s+=\s+(.+)$""")
 
-private val WITH_TYPE_ONLY = Regex("""^(\w+),\s+(.+?)\s+:\s+(\w+\(.*?\))$""")
+private val WITH_TYPE_ONLY = Regex("""^([\w-]+),\s+(.+?)\s+:\s+(\w+\(.*?\))$""")
 
-private val WITH_COLON_DEFAULT = Regex("""^(\w+),\s+(.+?)\s+:\s+(.+)$""")
+private val WITH_COLON_DEFAULT = Regex("""^([\w-]+),\s+(.+?)\s+:\s+(.+)$""")
 
-private val WITH_EQUALS_DEFAULT = Regex("""^(\w+),\s+(.+?)\s+=\s+(.+)$""")
+private val WITH_EQUALS_DEFAULT = Regex("""^([\w-]+),\s+(.+?)\s+=\s+(.+)$""")
 
-private val NAME_AND_HELP = Regex("""^(\w+),\s+(.+)$""")
+private val NAME_AND_HELP = Regex("""^([\w-]+),\s+(.+)$""")
 
 fun parseArgumentLine(line: String): ArgumentConfig {
     val a = WITH_TYPE_AND_DEFAULT.matchEntire(line)

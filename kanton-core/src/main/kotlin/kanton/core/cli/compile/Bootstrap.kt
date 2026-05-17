@@ -12,12 +12,18 @@ fun main(args: Array<String>) {
         args.map { File(it) }
     } else {
         listOf(
-            File(scriptsDir, "kanton-compile.kt.md"),
-            File(scriptsDir, "kanton-scaffold.kt.md"),
-        )
+            "kanton-compile.kt.md",
+            "kanton-scaffold.kt.md",
+            "kanton-sync-back.kt.md",
+            "kanton-delete-scaffold.kt.md",
+        ).map { File(scriptsDir, it) }
     }
 
     for (script in targets) {
+        if (!script.exists()) {
+            println("WARNING: ${script.name} not found at ${script.absolutePath}, skipping")
+            continue
+        }
         val binary = File(binDir, script.nameWithoutExtension.removeSuffix(".kt"))
         val checksumFile = File(binDir, "${binary.name}.md5")
         val currentChecksum = MessageDigest.getInstance("MD5").let { md ->

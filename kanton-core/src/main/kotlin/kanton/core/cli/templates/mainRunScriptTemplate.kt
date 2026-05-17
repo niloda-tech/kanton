@@ -9,6 +9,6 @@ fun mainRunScriptTemplate(className: String): Template =
 
 private val mainRunScriptTemplate = """
 
-    fun main(args: Array<String>) = cli.runScript({{className}}(), args)
+    fun main(args: Array<String>) = kanton.runScript({{className}}(), args)
 
 """.template
