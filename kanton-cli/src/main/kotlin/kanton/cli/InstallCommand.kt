@@ -5,18 +5,19 @@ import com.github.ajalt.clikt.core.Context
 import com.github.ajalt.clikt.parameters.arguments.argument
 import com.github.ajalt.clikt.parameters.options.flag
 import com.github.ajalt.clikt.parameters.options.option
-import com.github.ajalt.clikt.parameters.types.file
 import kanton.core.cli.compile.Compile
+import kanton.core.shared.repos.RepoRegistry
 import java.io.File
 import java.security.MessageDigest
 
 class InstallCommand : CliktCommand(name = "install") {
-    override fun help(context: Context) = "Compile and install a .kt.md script to ~/.kanton/bin/"
+    override fun help(context: Context) = "Compile and install a script to ~/.kanton/bin/"
 
-    private val file by argument(help = "Path to the .kt.md source file").file(mustExist = true)
+    private val target by argument(help = "Path to .kt.md file, or namespace:script")
     private val force by option("-f", "--force", help = "Recompile even if up-to-date").flag()
 
     override fun run() {
+        val file = resolveTarget(target)
         val binDir = File(System.getProperty("user.home"), ".kanton/bin").also { it.mkdirs() }
         val scriptName = File(file.nameWithoutExtension).nameWithoutExtension
         val binPath = File(binDir, scriptName)
@@ -37,5 +38,16 @@ class InstallCommand : CliktCommand(name = "install") {
         val result = Compile.run(file, binDir)
         checksumPath.writeText(currentChecksum)
         echo("Installed: ${result.absolutePath}")
+    }
+
+    private fun resolveTarget(target: String): File {
+        val ref = RepoRegistry.parseRef(target)
+        if (ref != null) {
+            return RepoRegistry.resolve(ref)
+                ?: error("Script not found: $ref (check 'kanton repo list' for registered namespaces)")
+        }
+        val file = File(target)
+        require(file.exists()) { "File not found: ${file.absolutePath}" }
+        return file
     }
 }

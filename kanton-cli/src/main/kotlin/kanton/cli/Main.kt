@@ -20,6 +20,8 @@ fun main(args: Array<String>) {
             DeleteCommand(),
             TestCommand(),
             FormatCommand(),
+            ListCommand(),
+            RepoCommand(),
         )
         .main(args)
 }
