@@ -124,12 +124,13 @@ Tests: `BinaryAcceptanceTest`
 - `kanton-lib-plugin` (was `ktlib-plugin`) — IntelliJ support for `.kt.md` libraries
 - These depend on kanton-core being fully migrated first
 
-### Phase 7: Management CLI (new features)
+### Phase 7: Management CLI (in progress)
 
-- `kanton install`, `kanton compile`, `kanton scaffold`, `kanton test`
-- Namespacing and script repositories
-- Per-script testing support
-- These are new features, not migrations
+- [x] `kanton-cli` module with Clikt subcommand tree
+- [x] Subcommands: scaffold, compile, install, sync-back, delete, test, format
+- [x] `./gradlew :kanton-cli:installCli` → `~/.kanton/bin/kanton`
+- [ ] Namespacing and script repositories
+- [ ] Per-script testing support (test command scaffolds + runs `./gradlew test`)
 
 ## File Format Reference
 

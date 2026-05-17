@@ -56,6 +56,8 @@ Do **not** write `@file:DependsOn(...)` in the source — list all deps in the `
 ./gradlew :kanton-core:build          # Build everything + run tests
 ./gradlew :kanton-core:buildExecutor   # Build kanton-executor binary
 ./gradlew :kanton-core:bootstrap       # Compile all scripts into ~/.kanton/bin/
+./gradlew :kanton-cli:build           # Build the kanton management CLI
+./gradlew :kanton-cli:installCli      # Install kanton binary → ~/.kanton/bin/kanton
 ```
 
 ---
@@ -65,6 +67,7 @@ Do **not** write `@file:DependsOn(...)` in the source — list all deps in the `
 | Path | Purpose |
 |---|---|
 | `kanton-core/` | Parser, compiler, scaffold, sync-back, compile pipeline |
+| `kanton-cli/` | Management CLI (`kanton` command with subcommands) |
 | `kanton-core/scripts/` | `.kt.md` CLI scripts (kanton's own tools) |
 | `docs/FORMAT_SPEC.md` | Full `.kt.md` grammar |
 | `docs/CLI_MD_SKILL.md` | JSON spec workflow for programmatic script generation |
@@ -73,13 +76,15 @@ Do **not** write `@file:DependsOn(...)` in the source — list all deps in the `
 
 ## Build System
 
-Gradle single-module (expanding to multi-module for plugins). Key tasks:
+Gradle multi-module. Key tasks:
 
 ```bash
-./gradlew :kanton-core:build           # Build + test
+./gradlew :kanton-core:build           # Build + test core library
 ./gradlew :kanton-core:test            # Run all tests
 ./gradlew :kanton-core:buildExecutor   # Build executor binary → ~/.kanton/bin/
 ./gradlew :kanton-core:bootstrap       # Compile all scripts → ~/.kanton/bin/
+./gradlew :kanton-cli:build            # Build management CLI
+./gradlew :kanton-cli:installCli       # Install kanton binary → ~/.kanton/bin/kanton
 ```
 
 ---
