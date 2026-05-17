@@ -6,7 +6,6 @@ exec ~/.kanton/bin/kanton-executor "kanton-scaffold.kt.md" "$@"
 ```cli
 kanton-scaffold:Scaffold a Gradle project from a .kt.md file
 FILE, Path to the .kt.md source file
---native, -n, Enable GraalVM native-image support
 
 val srcFile = java.io.File(file)
 if (!srcFile.exists()) { echo("Error: File not found: ${srcFile.absolutePath}"); throw kotlin.system.exitProcess(1) }

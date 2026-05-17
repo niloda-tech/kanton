@@ -9,7 +9,7 @@ This is the canonical specification for `.kt.md` — the unified source format f
 - Source files use the `.kt.md` extension (e.g. `hello.kt.md`, `my-lib.kt.md`)
 - A single file is either a **CLI script** (contains a `` ```cli `` fence) or a **library** (contains a `` ```lib `` fence)
 - Output is a full JVM Gradle project scaffolded to `~/.kanton/cache/<name>/`
-- CLI scripts compile to self-executing JVM binaries (shadow JAR) or GraalVM native images
+- CLI scripts compile to self-executing JVM binaries (shadow JAR)
 - Libraries publish to Maven Local via `publishToMavenLocal`
 - Source files are human-readable Markdown with one special fenced block
 
@@ -273,7 +273,7 @@ Gradle project scaffold
     │  src/main/kotlin/Main.kt
     │  src/main/kotlin/kanton/Stubs.kt
     ▼
-Executable binary  (via shadowJar or GraalVM nativeCompile)
+Executable binary  (via shadowJar)
 ```
 
 #### Scaffold Output
