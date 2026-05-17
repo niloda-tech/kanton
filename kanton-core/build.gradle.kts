@@ -19,3 +19,11 @@ dependencies {
 kotlin {
     jvmToolchain(17)
 }
+
+tasks.register<JavaExec>("bootstrap") {
+    group = "kanton"
+    description = "Compile kanton-compile and kanton-scaffold into bin/ if not already present"
+    classpath = sourceSets["main"].runtimeClasspath
+    mainClass.set("kanton.core.cli.compile.BootstrapKt")
+    workingDir = rootProject.projectDir
+}
