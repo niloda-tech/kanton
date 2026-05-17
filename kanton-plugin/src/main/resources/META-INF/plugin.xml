@@ -1,0 +1,46 @@
+<idea-plugin>
+    <id>com.kanton.plugin</id>
+    <name>Kanton Language Support</name>
+    <vendor>kanton</vendor>
+    <description>
+        Language support for .kt.md files. Provides syntax highlighting and
+        Kotlin language injection into fenced code blocks (```cli for scripts,
+        ```lib for libraries).
+    </description>
+
+    <depends>com.intellij.modules.platform</depends>
+    <depends>org.jetbrains.kotlin</depends>
+
+    <extensions defaultExtensionNs="org.jetbrains.kotlin">
+        <supportsKotlinPluginMode supportsK2="true" />
+    </extensions>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <fileType
+            name="KantonMd"
+            implementationClass="kanton.plugin.KantonMdFileType"
+            fieldName="INSTANCE"
+            language="KantonMd"
+            patterns="*.kt.md"/>
+
+        <lang.parserDefinition
+            language="KantonMd"
+            implementationClass="kanton.plugin.parser.KantonMdParserDefinition"/>
+
+        <lang.syntaxHighlighterFactory
+            language="KantonMd"
+            implementationClass="kanton.plugin.highlighting.KantonMdSyntaxHighlighterFactory"/>
+
+        <multiHostInjector
+            implementation="kanton.plugin.injection.KantonMdMultiHostInjector"/>
+
+        <editorNotificationProvider
+            implementation="kanton.plugin.editor.KantonMdEditorNotificationProvider"/>
+
+        <codeInsight.lineMarkerProvider
+            language="KantonMd"
+            implementationClass="kanton.plugin.editor.KantonMdActionLineMarkerProvider"/>
+
+        <notificationGroup id="Kanton" displayType="BALLOON"/>
+    </extensions>
+</idea-plugin>
