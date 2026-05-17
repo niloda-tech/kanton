@@ -16,7 +16,7 @@ fun buildExplodedKotlin(source: String): String? {
     val (scriptName, help, className) = parseScriptHeader(firstLine)
 
     val depEntries = depsSection?.let { parseDeps(it.lines) } ?: emptyList()
-    val depImports = depEntries.flatMap { it.imports }.filter { it.isNotEmpty() && it != "cli.CliScript" }
+    val depImports = depEntries.flatMap { it.imports }.filter { it.isNotEmpty() && it != "kanton.Script" }
     val headerLines = cli.lines.drop(1).filter { it.isNotBlank() }
 
     val hasOptions = headerLines.any { !isArgumentLine(it) }

@@ -1,9 +1,9 @@
-package cli
+package kanton
 
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.core.main
 
-abstract class CliScript(name: String? = null) : CliktCommand(name = name)
+abstract class Script(name: String? = null) : CliktCommand(name = name)
 
 fun stdinText(): String = ""
 

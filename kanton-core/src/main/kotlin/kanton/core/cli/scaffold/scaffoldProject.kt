@@ -26,9 +26,9 @@ fun scaffoldProject(source: String, nativeImage: Boolean = false, sourceFile: Fi
 
     val projectDir = File(System.getProperty("user.home"), ".kanton/cache/$scriptName")
     val srcDir = File(projectDir, "src/main/kotlin")
-    val cliDir = File(srcDir, "cli")
+    val kantonDir = File(srcDir, "kanton")
     srcDir.mkdirs()
-    cliDir.mkdirs()
+    kantonDir.mkdirs()
 
     File(projectDir, "settings.gradle.kts").writeText(
         settingsGradleKts(scriptName)
@@ -44,7 +44,7 @@ fun scaffoldProject(source: String, nativeImage: Boolean = false, sourceFile: Fi
             nativeVersion = "0.10.4"
         ).value
     )
-    File(cliDir, "Stubs.kt").writeText(CLI_STUBS)
+    File(kantonDir, "Stubs.kt").writeText(CLI_STUBS)
     File(srcDir, "Main.kt").writeText(mainKt)
 
     createSymlink(sourceFile, projectDir)

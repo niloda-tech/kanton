@@ -1,7 +1,7 @@
 package kanton.core.cli.templates
 
 val CLI_STUBS = """
-package cli
+package kanton
 
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.core.main

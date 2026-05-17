@@ -89,7 +89,7 @@ internal fun formatArgumentLine(arg: ArgumentConfig): String = buildString {
 }
 
 private val CLIKT_COORD = "com.github.ajalt.clikt:clikt:5.1.0"
-private val BASE_IMPORTS = listOf("cli.CliScript")
+private val BASE_IMPORTS = listOf("kanton.Script")
 private val OPTION_IMPORTS = listOf(
     "com.github.ajalt.clikt.parameters.options.option",
     "com.github.ajalt.clikt.parameters.options.default"

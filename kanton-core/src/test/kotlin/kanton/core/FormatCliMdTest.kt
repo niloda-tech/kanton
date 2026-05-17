@@ -52,7 +52,7 @@ class FormatCliMdTest {
         val result = ensureBaseImports(emptyList(), hasOptions = false)
         assertEquals(1, result.size)
         assertEquals("com.github.ajalt.clikt:clikt:5.1.0", result[0].coord)
-        assertContains(result[0].imports, "cli.CliScript")
+        assertContains(result[0].imports, "kanton.Script")
     }
 
     @Test
@@ -64,11 +64,11 @@ class FormatCliMdTest {
 
     @Test
     fun `ensureBaseImports preserves existing clikt imports`() {
-        val deps = listOf(DepEntry("com.github.ajalt.clikt:clikt:5.1.0", listOf("cli.CliScript", "cli.stdinText")))
+        val deps = listOf(DepEntry("com.github.ajalt.clikt:clikt:5.1.0", listOf("kanton.Script", "kanton.stdinText")))
         val result = ensureBaseImports(deps, hasOptions = true)
         assertEquals(1, result.size)
-        assertContains(result[0].imports, "cli.CliScript")
-        assertContains(result[0].imports, "cli.stdinText")
+        assertContains(result[0].imports, "kanton.Script")
+        assertContains(result[0].imports, "kanton.stdinText")
         assertContains(result[0].imports, "com.github.ajalt.clikt.parameters.options.option")
     }
 
@@ -94,7 +94,7 @@ class FormatCliMdTest {
         assertContains(result, "--name, -n, Name to greet = \"World\"")
         assertContains(result, "echo(\"Hello, \$name!\")")
         assertContains(result, "# dependencies")
-        assertContains(result, "cli.CliScript")
+        assertContains(result, "kanton.Script")
     }
 
     @Test

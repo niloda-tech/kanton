@@ -68,7 +68,7 @@ class JsonSpecWorkflowTest {
                 "--verbose, -v, Show per-line breakdown = \"false\""
             ),
             dependencies = listOf(
-                DepEntry("com.github.ajalt.clikt:clikt:5.1.0", listOf("cli.stdinText"))
+                DepEntry("com.github.ajalt.clikt:clikt:5.1.0", listOf("kanton.stdinText"))
             ),
         )
 
@@ -107,8 +107,8 @@ echo("Chars: ${'$'}chars")
 
         val depEntries = parseDeps(result.deps!!.lines)
         val cliktDep = depEntries.first { it.coord == "com.github.ajalt.clikt:clikt:5.1.0" }
-        assertContains(cliktDep.imports, "cli.CliScript")
-        assertContains(cliktDep.imports, "cli.stdinText")
+        assertContains(cliktDep.imports, "kanton.Script")
+        assertContains(cliktDep.imports, "kanton.stdinText")
         assertContains(cliktDep.imports, "com.github.ajalt.clikt.parameters.options.option")
         assertContains(cliktDep.imports, "com.github.ajalt.clikt.parameters.options.default")
     }
@@ -129,7 +129,7 @@ echo("Chars: ${'$'}chars")
 
         val depEntries = parseDeps(result.deps!!.lines)
         val cliktDep = depEntries.first { it.coord == "com.github.ajalt.clikt:clikt:5.1.0" }
-        assertContains(cliktDep.imports, "cli.CliScript")
+        assertContains(cliktDep.imports, "kanton.Script")
         assertEquals(1, depEntries.size)
     }
 
@@ -211,7 +211,7 @@ runBlocking {
             helpText = "Read and echo stdin",
             options = listOf("--prefix, -p, Line prefix = \"\""),
             dependencies = listOf(
-                DepEntry("com.github.ajalt.clikt:clikt:5.1.0", listOf("cli.stdinText")),
+                DepEntry("com.github.ajalt.clikt:clikt:5.1.0", listOf("kanton.stdinText")),
             ),
         )
 
@@ -220,8 +220,8 @@ runBlocking {
         val depEntries = parseDeps(result.deps!!.lines)
         val cliktDeps = depEntries.filter { it.coord == "com.github.ajalt.clikt:clikt:5.1.0" }
         assertEquals(1, cliktDeps.size, "clikt dependency should appear exactly once")
-        assertContains(cliktDeps[0].imports, "cli.CliScript")
-        assertContains(cliktDeps[0].imports, "cli.stdinText")
+        assertContains(cliktDeps[0].imports, "kanton.Script")
+        assertContains(cliktDeps[0].imports, "kanton.stdinText")
         assertContains(cliktDeps[0].imports, "com.github.ajalt.clikt.parameters.options.option")
     }
 
@@ -357,6 +357,6 @@ if (c > 2) {
         assertContains(grokDep.imports, "com.niloda.GrokCaller")
 
         val cliktDep = depEntries.first { "clikt" in it.coord }
-        assertContains(cliktDep.imports, "cli.CliScript")
+        assertContains(cliktDep.imports, "kanton.Script")
     }
 }

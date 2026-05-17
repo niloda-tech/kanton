@@ -82,7 +82,7 @@ private fun findBestCoordIndex(import: String, coords: List<String>): Int {
     return bestIdx
 }
 
-private val PRESERVED_IMPORTS = setOf("cli.CliScript")
+private val PRESERVED_IMPORTS = setOf("kanton.Script")
 
 private fun replaceDepsSectionContent(source: String, newContent: String): String {
     val lines = source.lines()

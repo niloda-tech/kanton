@@ -9,7 +9,7 @@ import kanton.core.shared.models.parseScriptHeader
 private data class CliStub(val returnType: String, val inlineBody: String)
 
 private val CLI_STUBS = mapOf(
-    "cli.stdinText" to CliStub(": String", """generateSequence(::readLine).joinToString("\n")""")
+    "kanton.stdinText" to CliStub(": String", """generateSequence(::readLine).joinToString("\n")""")
 )
 
 fun knownCliReturnType(fqn: String): String = CLI_STUBS[fqn]?.returnType ?: ""
@@ -53,12 +53,12 @@ fun buildInjectionContextFromCliKts(cliKtsContent: String): InjectionContext? {
     if (runLineIdx < 0) return null
 
     val strippedCliImports = lines
-        .filter { it.startsWith("import cli.") }
+        .filter { it.startsWith("import kanton.") && !it.startsWith("import kanton.core.") }
         .map { it.removePrefix("import ").trim() }
 
     var prefix = lines.subList(0, runLineIdx + 1).joinToString("\n") + "\n"
     prefix = prefix.lines().filter { !it.startsWith("import ") }.joinToString("\n") + "\n"
-    prefix = prefix.replace(": CliScript(", ": com.github.ajalt.clikt.core.CliktCommand(")
+    prefix = prefix.replace(": Script(", ": com.github.ajalt.clikt.core.CliktCommand(")
     prefix = prefix.replace(": CliktCommand(", ": com.github.ajalt.clikt.core.CliktCommand(")
 
     val delegates = buildString {
@@ -98,7 +98,7 @@ fun buildInjectionContextFromMd(source: String): InjectionContext? {
         if (escapedHelp.isNotEmpty()) {
             appendLine("    override fun commandHelp(context: com.github.ajalt.clikt.core.Context) = \"$escapedHelp\"")
         }
-        val filteredImports = allDepImports.filter { it.isNotEmpty() && it != "cli.CliScript" }
+        val filteredImports = allDepImports.filter { it.isNotEmpty() && it != "kanton.Script" }
         for (imp in filteredImports) {
             val simpleName = imp.substringAfterLast('.')
             val returnType = knownCliReturnType(imp)

@@ -12,7 +12,7 @@ fun buildExplodedLibraryKotlin(source: String, packageName: String? = null): Str
 
     val depEntries = depsSection?.let { parseLibDeps(it.lines) } ?: emptyList()
     val imports = depEntries.flatMap { it.imports }
-        .filter { it.isNotEmpty() && !it.startsWith("cli.") }
+        .filter { it.isNotEmpty() && !(it.startsWith("kanton.") && !it.startsWith("kanton.core.")) }
 
     return buildString {
         if (!packageName.isNullOrBlank()) {
