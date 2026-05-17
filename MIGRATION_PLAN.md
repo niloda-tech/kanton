@@ -18,7 +18,7 @@ Rebranded from `ktcli`. Fresh repo at `~/.kanton/repo`.
 | Bin dir | `~/.ktcli/bin/` | `~/.kanton/bin/` |
 | Repo dir | (was in ~/cursor/agents) | `~/.kanton/repo` |
 | Module name | `ktcli-core` | `kanton-core` |
-| CLI base class import | `cli.CliScript` | TBD |
+| CLI base class import | `cli.CliScript` | `kanton.Script` |
 
 ## Current State (completed)
 
@@ -150,7 +150,7 @@ echo("Hello, $name!")
 
 # dependencies
 com.github.ajalt.clikt:clikt:5.1.0
-  cli.CliScript
+  kanton.Script
 ````
 
 ### Library (`.kt.md` with ` ```lib ` fence)
@@ -167,12 +167,13 @@ api com.example:other:2.0
   com.example.Other
 ````
 
-## Key Decisions Still Open
+## Key Decisions (Resolved)
 
-- **CLI base class name**: currently `cli.CliScript` — rename to something under `kanton.*`?
-- **Executor binary name**: `kanton-executor` vs `kanton exec` subcommand?
-- **Backward compatibility**: support reading old `.ktcli.md` files during transition?
-- **Format spec doc**: write a new `FORMAT_SPEC.md` for the `.kt.md` format?
+- **CLI base class name**: `kanton.Script` (package `kanton`, class `Script` extends `CliktCommand`)
+- **Stub imports**: `kanton.Script`, `kanton.stdinText`, `kanton.runScript`
+- **Executor binary name**: `kanton-executor` (standalone binary at `~/.kanton/bin/`)
+- **Backward compatibility**: No — clean break, no `.ktcli.md` / `` ```ktcli `` support
+- **Format spec doc**: Written at `docs/FORMAT_SPEC.md`
 
 ## Source Reference
 
