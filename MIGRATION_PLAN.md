@@ -111,8 +111,7 @@ Tests: `SyncbackTest`, `KtlibSyncbackTest`
 ### Phase 5: Compile Pipeline
 
 1. **cli/compile/compileBinary.kt** — shadowJar + shell stub
-2. **cli/compile/compileNative.kt** — GraalVM native binary
-3. **cli/compile/Bootstrap.kt** — Gradle task that bootstraps bin/ binaries
+2. **cli/compile/Bootstrap.kt** — Gradle task that bootstraps bin/ binaries
 
 Update bin output path: `~/.kanton/bin/`
 
@@ -142,7 +141,12 @@ Tests: `BinaryAcceptanceTest`
 - [x] `kanton-cli` module with Clikt subcommand tree
 - [x] Subcommands: scaffold, compile, install, sync-back, delete, test, format
 - [x] `./gradlew :kanton-cli:installCli` → `~/.kanton/bin/kanton`
-- [ ] Namespacing and script repositories
+- [x] Namespacing and script repositories
+  - `RepoRegistry` in kanton-core: parses `namespace:script` refs, reads/writes `~/.kanton/repos.toml`
+  - `kanton repo add|remove|list` subcommand group
+  - `kanton list [namespace]` — browse scripts in registered repos
+  - `kanton install` accepts `namespace:script` alongside file paths
+  - Unit tests for ref parsing
 - [ ] Per-script testing support (test command scaffolds + runs `./gradlew test`)
 
 ## File Format Reference
