@@ -36,7 +36,7 @@ val installCli = tasks.register("installCli") {
         val jar = jarFile.get().asFile
         val outputFile = File(binDir, "kanton")
         val tmpFile = File(binDir, ".kanton.tmp")
-        val stub = "#!/bin/sh\nexec java -jar \"\$0\" \"\$@\"\n"
+        val stub = $$"#!/bin/sh\nexec java -jar \"$0\" \"$@\"\n"
         tmpFile.outputStream().use { out ->
             out.write(stub.toByteArray(Charsets.UTF_8))
             out.write(jar.readBytes())

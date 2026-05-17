@@ -118,11 +118,49 @@ Update bin output path: `~/.kanton/bin/`
 
 Tests: `BinaryAcceptanceTest`
 
-### Phase 6: IDE Plugins (future modules)
+### Phase 6: IDE Plugin (completed)
 
-- `kanton-plugin` (was `ktcli-plugin`) — IntelliJ support for `.kt.md` CLI scripts
-- `kanton-lib-plugin` (was `ktlib-plugin`) — IntelliJ support for `.kt.md` libraries
-- These depend on kanton-core being fully migrated first
+- [x] Merged `ktcli-plugin` + `ktlib-plugin` → single `kanton-plugin` module
+- [x] Unified language: `KantonMd` with `*.kt.md` file pattern
+- [x] Lexer/parser/PSI/highlighting stack (identical to both originals, repackaged)
+- [x] Merged `KantonMdMultiHostInjector` handles both `cli` and `lib` fences
+- [x] `KantonMdEditorNotificationProvider` auto-detects CLI vs lib by fence type
+- [x] Unified `ActionConfig` + `BinaryRunner` with `kanton` CLI subcommands
+- [x] CLI actions: scaffold, sync-back, compile, delete
+- [x] Lib actions: scaffold-lib, sync-back-lib, publish, delete-scaffold-lib
+- [x] Line marker provider for `kanton://` action links
+- [x] `plugin.xml` with K2 support, notification group, all extensions
+- [x] Build passes: `./gradlew :kanton-plugin:build`
+- [ ] **Tests** — merge and migrate tests from both original plugins (34 test files total):
+
+  **Unit tests** (7 from ktcli-plugin, 6 from ktlib-plugin → merge into unified suite):
+  - `KantonMdLexerTest` — merges `KtcliLexerTest` + `KtlibLexerTest`
+  - `KantonMdParsingTest` — merges `KtcliParsingTest` + `KtlibParsingTest`
+  - `KantonMdFileTypeTest` — merges `KtcliFileTypeTest` + `KtlibFileTypeTest`
+  - `KantonMdSyntaxHighlighterTest` — merges `KtcliSyntaxHighlighterTest` + `KtlibSyntaxHighlighterTest`
+  - `KantonMdScriptContextTest` — merges `KtcliScriptContextTest` + `KtlibScriptContextTest`
+  - `ParseScriptNameTest` — from ktcli-plugin (cli fence)
+  - `ParseArtifactNameTest` — from ktlib-plugin (lib fence)
+
+  **Cucumber step definitions** (11 from ktcli-plugin, 10 from ktlib-plugin → merge):
+  - Shared: `PluginScenarioContext`, `Hooks`, `FileSetupSteps`
+  - CLI-specific: `LexerSteps`, `ParsingSteps`, `HighlightingSteps`, `InjectionSteps`, `ScriptContextSteps`, `ScriptNameSteps`, `ScaffoldBinarySteps`
+  - Lib-specific: `LexerSteps`, `ParsingSteps`, `HighlightingSteps`, `ScriptContextSteps`, `ArtifactNameSteps`, `BinarySteps`
+  - `CucumberSuite` runner
+
+  **Feature files** (10 from ktcli-plugin, 9 from ktlib-plugin → merge/adapt):
+  - Core: lexing, parsing, syntax_highlighting (merge cli+lib scenarios)
+  - CLI: language_injection, script_context, script_name, scaffold_action, sync_back_action, compile_action, delete_scaffold_action
+  - Lib: injection_context, artifact_name, scaffold_binary, sync_back_binary, publish_binary, delete_scaffold_binary
+
+  **Key migration changes for tests:**
+  - Package rename: `com.agents.ktcli`/`com.agents.ktlib` → `kanton.plugin`
+  - Fence tags in fixtures: `ktcli`/`ktlib` → `cli`/`lib`
+  - File extensions in fixtures: `.ktcli.md`/`.ktlib.md` → `.kt.md`
+  - Action URL scheme in fixtures: `ktcli://`/`ktlib://` → `kanton://`
+  - Notification group: `Ktcli`/`Ktlib` → `Kanton`
+  - Binary names: `ktcli-scaffold` etc. → `kanton` with subcommands
+  - Core API imports: `ktcli.core.*` → `kanton.core.*`
 
 ### Phase 7: Management CLI (in progress)
 
