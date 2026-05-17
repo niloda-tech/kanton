@@ -16,6 +16,7 @@ fun main(args: Array<String>) {
             "kanton-scaffold.kt.md",
             "kanton-sync-back.kt.md",
             "kanton-delete-scaffold.kt.md",
+            "format-kanton.kt.md",
         ).map { File(scriptsDir, it) }
     }
 
