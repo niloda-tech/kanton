@@ -136,7 +136,7 @@ Tests: `BinaryAcceptanceTest`
   - Lib features: lexing, parsing, syntax_highlighting, injection_context, artifact_name, binary_actions
   - All 67 tests passing: `./gradlew :kanton-plugin:test`
 
-### Phase 7: Management CLI (in progress)
+### Phase 7: Management CLI (completed)
 
 - [x] `kanton-cli` module with Clikt subcommand tree
 - [x] Subcommands: scaffold, compile, install, sync-back, delete, test, format
@@ -147,7 +147,12 @@ Tests: `BinaryAcceptanceTest`
   - `kanton list [namespace]` — browse scripts in registered repos
   - `kanton install` accepts `namespace:script` alongside file paths
   - Unit tests for ref parsing
-- [ ] Per-script testing support (test command scaffolds + runs `./gradlew test`)
+- [x] Per-script testing support
+  - Scaffold generates `src/test/kotlin/<ClassName>Test.kt` with Clikt `test()` starter tests
+  - Existing test files preserved on re-scaffold (no overwrite)
+  - `build.gradle.kts` template includes `testImplementation(kotlin("test"))`
+  - `kanton test` generates Gradle wrapper on-demand, supports `namespace:script` refs
+  - End-to-end verified: scaffold → test generation → `./gradlew test` passes
 
 ## File Format Reference
 
